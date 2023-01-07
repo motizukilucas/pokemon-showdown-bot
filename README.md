@@ -17,7 +17,15 @@ battle.team
     print(battle.active_pokemon.ability)
     print(battle.opponent_active_pokemon.ability)
 
+    return self.create_order(battle.available_switches[0])
+> switches to first available pokemon
 
+## TODO
+- [x] If I'm hyper weak switch to next available pokemon
+- [x] if outpseed and stronger use higest power attack
+- bug avoid imune moves like and eletric move ground pokemon
+- bug avoid non damaging moves like roost if you want to attack
+- bug not switch if no available switch
 
 ## Running
 You can run it locally with python3:
@@ -29,7 +37,8 @@ Or with docker:
 
     docker stop $(docker ps -aq) || true && docker rm $(docker ps -aq) || true && docker rmi $(docker images) || true && docker build . --no-cache -t pokemon-showdown-bot && docker run -d pokemon-showdown-bot
 
-## TODO
-- rule based bot
-- train a ML algorytm to improve my bots AI
-- dump poke-env lib and integrate with smogon's showdown myself
+## Future Improvements
+- Refactor Ash
+- Train a ML algorytm to improve my bots AI
+- Try to integrate with Smogon's Showdown without poke-env lib
+> Can use my own showdown server

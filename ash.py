@@ -2143,6 +2143,130 @@ def super_effective(poke1, poke2):
 
     return False
 
+def out_speed(spe1, spe2):
+
+    if spe1 > spe2:
+        return True
+    
+    return False
+
+def half_health(hp, health):
+    # print(hp)
+    # print(health)
+
+    if health <= 100:
+        return True
+    else:
+        return False
+
+def effective_move(weakness, moves):
+
+    for move in moves:
+
+        if weakness['NORMAL'] >= 4 and "NORMAL" in str(move.type):
+            return move
+        if weakness['FIRE'] >= 4 and "FIRE" in str(move.type):
+            return move
+        if weakness['WATER'] >= 4 and "WATER" in str(move.type):
+            return move
+        if weakness['ELECTRIC'] >= 4 and "ELECTRIC" in str(move.type):
+            return move
+        if weakness['GRASS'] >= 4 and "GRASS" in str(move.type):
+            return move
+        if weakness['ICE'] >= 4 and "ICE" in str(move.type):
+            return move
+        if weakness['FIGHTING'] >= 4 and "FIGHTING" in str(move.type):
+            return move
+        if weakness['POISON'] >= 4 and "POISON" in str(move.type):
+            return move
+        if weakness['GROUND'] >= 4 and "GROUND" in str(move.type):
+            return move
+        if weakness['FLYING'] >= 4 and "FLYING" in str(move.type):
+            return move
+        if weakness['PSYCHIC'] >= 4 and "PSYCHIC" in str(move.type):
+            return move
+        if weakness['BUG'] >= 4 and "BUG" in str(move.type):
+            return move
+        if weakness['ROCK'] >= 4 and "ROCK" in str(move.type):
+            return move
+        if weakness['GHOST'] >= 4 and "GHOST" in str(move.type):
+            return move
+        if weakness['DRAGON'] >= 4 and "DRAGON" in str(move.type):
+            return move
+        if weakness['DARK'] >= 4 and "DARK" in str(move.type):
+            return move
+        if weakness['STEEL'] >= 4 and "STEEL" in str(move.type):
+            return move
+        if weakness['NORMAL'] >= 2 and "NORMAL" in str(move.type):
+            return move
+        if weakness['FIRE'] >= 2 and "FIRE" in str(move.type):
+            return move
+        if weakness['WATER'] >= 2 and "WATER" in str(move.type):
+            return move
+        if weakness['ELECTRIC'] >= 2 and "ELECTRIC" in str(move.type):
+            return move
+        if weakness['GRASS'] >= 2 and "GRASS" in str(move.type):
+            return move
+        if weakness['ICE'] >= 2 and "ICE" in str(move.type):
+            return move
+        if weakness['FIGHTING'] >= 2 and "FIGHTING" in str(move.type):
+            return move
+        if weakness['POISON'] >= 2 and "POISON" in str(move.type):
+            return move
+        if weakness['GROUND'] >= 2 and "GROUND" in str(move.type):
+            return move
+        if weakness['FLYING'] >= 2 and "FLYING" in str(move.type):
+            return move
+        if weakness['PSYCHIC'] >= 2 and "PSYCHIC" in str(move.type):
+            return move
+        if weakness['BUG'] >= 2 and "BUG" in str(move.type):
+            return move
+        if weakness['ROCK'] >= 2 and "ROCK" in str(move.type):
+            return move
+        if weakness['GHOST'] >= 2 and "GHOST" in str(move.type):
+            return move
+        if weakness['DRAGON'] >= 2 and "DRAGON" in str(move.type):
+            return move
+        if weakness['DARK'] >= 2 and "DARK" in str(move.type):
+            return move
+        if weakness['STEEL'] >= 2 and "STEEL" in str(move.type):
+            return move
+
+    return max(moves, key=lambda move: move.base_power)
+
+def catch_em_all(my_poke, opo_poke, my_types, my_weakness, opo_types, opo_weakness, hyper_weak, super_weak, hyper_strong, super_strong, moves, switches):
+
+    print(my_weakness)
+    print(opo_weakness)
+
+    faster = out_speed(my_poke.base_stats['spe'], opo_poke.base_stats['spe'])
+    half_health(my_poke.base_stats['hp'], my_poke.current_hp)
+    
+
+    if hyper_weak:
+        print("Screw this!")
+        return switches[0]
+    
+    if faster and hyper_strong:
+        # print(my_poke)
+        # print(opo_poke)
+        # print(my_types)
+        # print(opo_types)
+        # print(opo_weakness)
+        print("I'm faster and stronger!")
+        return max(moves, key=lambda move: move.base_power)
+
+    if super_weak and not faster:
+        print("Perhaps next time!")
+        return switches[0]
+
+    if super_strong:
+        print("I've got the upper hand!")
+        return effective_move(opo_weakness, moves)
+
+    print("Heads or tails?!")
+    return max(moves, key=lambda move: move.base_power)
+
 
 class MaxDamagePlayer(Player):
     def choose_move(self, battle):
@@ -2159,7 +2283,10 @@ class MaxDamagePlayer(Player):
             bot_hyper_strong = hyper_effective(opo_weakness, bot_move_types)
             bot_super_strong = super_effective(opo_weakness, bot_move_types)
 
-            print(battle.available_switches)
+
+            move = catch_em_all(battle.active_pokemon, battle.opponent_active_pokemon, bot_types, bot_weakness, opo_types, opo_weakness, bot_hyper_weak, bot_super_weak, bot_hyper_strong, bot_super_strong, battle.available_moves, battle.available_switches)
+
+            return self.create_order(move)
 
             best_move = max(battle.available_moves, key=lambda move: move.base_power)
             return self.create_order(best_move)
@@ -2179,7 +2306,7 @@ async def main():
     )
 
 
-    await max_damage_player.send_challenges("misterDXpecial", n_challenges=1)
+    await max_damage_player.send_challenges(os.getenv("OPPONENT"), n_challenges=1)
 
     await max_damage_player.accept_challenges(None, 1)
 
