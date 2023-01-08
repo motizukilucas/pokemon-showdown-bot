@@ -4,10 +4,9 @@ Inpired by [Rempton Games](https://www.youtube.com/watch?v=C1KpQc9cWmM&t=314)
 
 Thanks [Bulbagarden's list of type combinations](https://bulbapedia.bulbagarden.net/wiki/List_of_type_combinations_by_abundance) and [pokemondb's type chart](https://pokemondb.net/type) 
 
-How to select always first move?
+## Poke-env Attributes
 
-battle.team
-
+    battle.team
     print(battle.active_pokemon.base_stats)
     # atk, def, hp, spa, spd, spe
     print(battle.active_pokemon.base_stats["spe"])
@@ -23,15 +22,15 @@ battle.team
 ## TODO
 - [x] If I'm hyper weak switch to next available pokemon
 - [x] if outpseed and stronger use higest power attack
+- [x] bug not switch if no available switch
+- [x] bug avoid non damaging moves like roost if you want to attack
 - bug avoid imune moves like and eletric move ground pokemon
-- bug avoid non damaging moves like roost if you want to attack
-- bug not switch if no available switch
 
 ## Running
 You can run it locally with python3:
 
-    pip3 install poke-env
-    python3 bot.py
+    pip3 install poke-env python-dotenv
+    python3 ash.py
 
 Or with docker:
 

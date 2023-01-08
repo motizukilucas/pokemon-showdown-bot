@@ -2151,8 +2151,6 @@ def out_speed(spe1, spe2):
     return False
 
 def half_health(hp, health):
-    # print(hp)
-    # print(health)
 
     if health <= 100:
         return True
@@ -2234,29 +2232,31 @@ def effective_move(weakness, moves):
 
     return max(moves, key=lambda move: move.base_power)
 
-def catch_em_all(my_poke, opo_poke, my_types, my_weakness, opo_types, opo_weakness, hyper_weak, super_weak, hyper_strong, super_strong, moves, switches):
+def max_dmg_move(moves):
+    
+    max_dmg = moves[0]
 
-    print(my_weakness)
-    print(opo_weakness)
+    for move in moves:
+        if move.damage > 0 and move.base_power > max_dmg.base_power:
+            max_dmg = move
+
+    return max_dmg
+
+def catch_em_all(my_poke, opo_poke, my_types, my_weakness, opo_types, opo_weakness, hyper_weak, super_weak, hyper_strong, super_strong, moves, switches):
 
     faster = out_speed(my_poke.base_stats['spe'], opo_poke.base_stats['spe'])
     half_health(my_poke.base_stats['hp'], my_poke.current_hp)
     
 
-    if hyper_weak:
+    if hyper_weak and len(switches):
         print("Screw this!")
         return switches[0]
     
     if faster and hyper_strong:
-        # print(my_poke)
-        # print(opo_poke)
-        # print(my_types)
-        # print(opo_types)
-        # print(opo_weakness)
         print("I'm faster and stronger!")
-        return max(moves, key=lambda move: move.base_power)
+        return max_dmg_move(moves)
 
-    if super_weak and not faster:
+    if super_weak and not faster and len(switches):
         print("Perhaps next time!")
         return switches[0]
 
