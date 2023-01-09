@@ -2242,11 +2242,41 @@ def max_dmg_move(moves):
 
     return max_dmg
 
+def imune(weakness, moves):
+
+    for move in moves:
+
+        if weakness['NORMAL'] == -1 and "NORMAL" in str(move.type):
+            moves.remove(move)
+        if weakness['FIRE'] == -1 and "FIRE" in str(move.type):
+            moves.remove(move)
+        if weakness['WATER'] == -1 and "WATER" in str(move.type):
+            moves.remove(move)
+        if weakness['ELECTRIC'] == -1 and "ELECTRIC" in str(move.type):
+            moves.remove(move)
+        if weakness['GRASS'] == -1 and "GRASS" in str(move.type):
+            moves.remove(move)
+        if weakness['ICE'] == -1 and "ICE" in str(move.type):
+            moves.remove(move)
+        if weakness['FIGHTING'] == -1 and "FIGHTING" in str(move.type):
+            moves.remove(move)
+        if weakness['POISON'] == -1 and "POISON" in str(move.type):
+            moves.remove(move)
+        if weakness['GROUND'] == -1 and "GROUND" in str(move.type):
+            moves.remove(move)
+        if weakness['FLYING'] == -1 and "FLYING" in str(move.type):
+            moves.remove(move)
+        if weakness['PSYCHIC'] == -1 and "PSYCHIC" in str(move.type):
+            moves.remove(move)
+
+    return moves
+
 def catch_em_all(my_poke, opo_poke, my_types, my_weakness, opo_types, opo_weakness, hyper_weak, super_weak, hyper_strong, super_strong, moves, switches):
 
     faster = out_speed(my_poke.base_stats['spe'], opo_poke.base_stats['spe'])
     half_health(my_poke.base_stats['hp'], my_poke.current_hp)
-    
+    moves = imune(opo_weakness, moves)
+    print(moves)
 
     if hyper_weak and len(switches):
         print("Screw this!")

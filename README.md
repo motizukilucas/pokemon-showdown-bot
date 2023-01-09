@@ -4,6 +4,10 @@ Inpired by [Rempton Games](https://www.youtube.com/watch?v=C1KpQc9cWmM&t=314)
 
 Thanks [Bulbagarden's list of type combinations](https://bulbapedia.bulbagarden.net/wiki/List_of_type_combinations_by_abundance) and [pokemondb's type chart](https://pokemondb.net/type) 
 
+se ele ao invez de tentar tomar as melhores decisoes dele, ele deveria considerar os pokemons na mao dele
+> um pokemon tank mesmo fraco contra o pokemon adversario pode ser a melhor decisao possivel
+> posso fazer um curl para o rating do pokemon de algum site (bulbapedia)
+
 ## Poke-env Attributes
 
     battle.team
@@ -24,7 +28,7 @@ Thanks [Bulbagarden's list of type combinations](https://bulbapedia.bulbagarden.
 - [x] if outpseed and stronger use higest power attack
 - [x] bug not switch if no available switch
 - [x] bug avoid non damaging moves like roost if you want to attack
-- bug avoid imune moves like and eletric move ground pokemon
+- [x] bug avoid imune moves like and eletric move ground pokemon
 
 ## Running
 You can run it locally with python3:
